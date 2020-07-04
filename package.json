@@ -7,9 +7,9 @@
         "dev": "env NODE_ENV=DEV ts-node src/server.ts",
         "start": "env NODE_ENV=PROD node dist/server.js",
         "build": "tsc -p .",
-        "devmon": "nodemon src/server.ts",
-        "makemigrations": "ts-node ./node_modules/typeorm/cli.js migration:generate -n 'Auto'",
-        "migrate": "ts-node ./node_modules/typeorm/cli.js migration:run"
+        "devmon": "env NODE_ENV=DEV nodemon src/server.ts",
+        "makemigrations": "env NODE_ENV=DEV ts-node ./node_modules/typeorm/cli.js migration:generate -n 'Auto'",
+        "migrate": "env NODE_ENV=DEV ts-node ./node_modules/typeorm/cli.js migration:run"
     },
     "author": "",
     "license": "ISC",

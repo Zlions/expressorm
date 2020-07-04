@@ -1,6 +1,10 @@
 import * as express from 'express';
 import { Application } from 'express';
+import IControllerBase from 'interfaces/IControllerBase.interface';
 
+/**
+ * App is the main entrypoint for the web application
+ */
 class App {
     public app: Application;
     public port: number;
@@ -24,10 +28,10 @@ class App {
     }
 
     private routes(controllers: {
-        forEach: (arg0: (controller: any) => void) => void;
+        forEach: (arg0: (controller: IControllerBase) => void) => void;
     }) {
         controllers.forEach((controller) => {
-            this.app.use('/', controller.router);
+            this.app.use(controller.path, controller.router);
         });
     }
 

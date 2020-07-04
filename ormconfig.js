@@ -1,11 +1,11 @@
 module.exports = {
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'test',
-    password: 'test',
-    database: 'typeorm1',
-    synchronize: false,
+    type: process.env.DB_TYPE || 'postgres',
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 5432,
+    username: process.env.DB_USER || 'test',
+    password: process.env.DB_PASS || 'test',
+    database: process.env.DB_NAME || 'typeorm1',
+    synchronize: process.env.DB_SYNC === 'true',
     logging: false,
     entities: [
         process.env.NODE_ENV == 'PROD' ? 'dist/models/*.js' : 'src/models/*.ts',

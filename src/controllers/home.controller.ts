@@ -1,27 +1,19 @@
-import * as express from 'express';
 import { Request, Response } from 'express';
-import IControllerBase from 'interfaces/IControllerBase.interface';
+import BaseController from './base.controller';
 
-class HomeController implements IControllerBase {
-    public path = '/';
-    public router = express.Router();
-
+class HomeController extends BaseController {
     constructor() {
+        super();
         this.initRoutes();
     }
 
-    public initRoutes() {
-        this.router.get('/', this.index);
-    }
-
-    index = (req: Request, res: Response) => {
+    protected get = (req: Request, res: Response) => {
         const users = [
             {
                 id: 1,
                 name: 'Rimbo',
             },
         ];
-
         res.render('home/index', { users });
     };
 }

@@ -12,17 +12,17 @@ export default abstract class BaseController implements IControllerBase {
     public router = Router();
     protected route = '/'; // This is an internal value for configuring routes
 
-    constructor(public path: string = '/') {}
+    constructor(public path: string = '/', protected middlewares: any[] = []) {}
 
     /**
      * This method should be called inside the implementation constructor
      */
     protected initRoutes() {
-        this.router.get(this.route, this.get);
-        this.router.post(this.route, this.post);
-        this.router.patch(this.route, this.patch);
-        this.router.put(this.route, this.put);
-        this.router.delete(this.route, this.delete);
+        this.router.get(this.route, [...this.middlewares, this.get]);
+        this.router.post(this.route, [...this.middlewares, this.post]);
+        this.router.patch(this.route, [...this.middlewares, this.patch]);
+        this.router.put(this.route, [...this.middlewares, this.put]);
+        this.router.delete(this.route, [...this.middlewares, this.delete]);
     }
 
     protected get = (req: Request, res: Response) => {

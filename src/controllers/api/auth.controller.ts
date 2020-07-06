@@ -10,8 +10,8 @@ import { AuthValidator, RegisterValidator } from '../../utils/auth.utils';
  * API authentication controller
  */
 export default class AuhtControllerAPI extends BaseController {
-    constructor(public path: string = '/') {
-        super(path);
+    constructor(public path: string = '/', protected middlewares: any[] = []) {
+        super(path, middlewares);
         this.initRoutes();
     }
 

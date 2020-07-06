@@ -2,8 +2,8 @@ import { Request, Response } from 'express';
 import BaseController from './base.controller';
 
 class AuthController extends BaseController {
-    constructor(public path: string = '/') {
-        super(path);
+    constructor(public path: string = '/', protected middlewares: any[] = []) {
+        super(path, middlewares);
         this.initRoutes();
     }
 

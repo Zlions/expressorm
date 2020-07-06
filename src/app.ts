@@ -1,9 +1,14 @@
 import * as express from 'express';
 import { Application } from 'express';
+import * as nunjucks from 'nunjucks';
+import * as path from 'path';
+
 import IControllerBase from 'interfaces/IControllerBase.interface';
 
 /**
  * App is the main entrypoint for the web application
+ *
+ * Register global middlewares, routes, assets and templates engines here
  */
 class App {
     public app: Application;
@@ -36,12 +41,17 @@ class App {
     }
 
     private assets() {
-        this.app.use(express.static('public'));
-        this.app.use(express.static('views'));
+        this.app.use(express.static(path.join(__dirname, '..', 'public')));
+        // this.app.use(express.static(path.join(__dirname, '..', 'views')));
     }
 
     private template() {
-        this.app.set('view engine', 'pug');
+        nunjucks.configure(['views/'], {
+            autoescape: true,
+            express: this.app,
+        });
+        // this.app.set('view engine', 'pug');
+        // this.app.set('views', path.join(__dirname))
     }
 
     public listen() {

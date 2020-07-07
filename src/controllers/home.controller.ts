@@ -8,9 +8,7 @@ class HomeController extends BaseController {
     }
 
     protected get = (req: Request, res: Response) => {
-        // const users = await User.find();
-
-        res.render('index.html', { name: 'Rimvydas' });
+        res.render('index.html');
     };
 }
 

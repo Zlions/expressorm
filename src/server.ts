@@ -19,6 +19,8 @@ import AuthController from './controllers/auth.controller';
 import AuhtControllerAPI from './controllers/api/auth.controller';
 import initPassport from './config/passport';
 import authenticateJWT from './middleware/jwt';
+import { SessionSecret } from './config/secrets';
+import ValidationHandler from './middleware/validators';
 
 dotenv.config();
 
@@ -31,7 +33,7 @@ createConnection()
             controllers: [
                 new HomeController('/'),
                 new AuthController('/auth'),
-                new AuhtControllerAPI('/api/auth'),
+                new AuhtControllerAPI('/api/auth', [ValidationHandler]),
             ],
             middlewares: [
                 bodyParser.json(),
@@ -40,7 +42,7 @@ createConnection()
                 cors(),
                 authenticateJWT,
                 expressSession({
-                    secret: 'secret',
+                    secret: SessionSecret,
                     resave: false,
                     saveUninitialized: false,
                 }),

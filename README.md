@@ -1,13 +1,13 @@
 # Express + TypeORM startup
 
-```sh
-npm i
-npm run devmon
+Personal TypeScript, Express, TypeORM starting point.
+
+Authentication using JWT and session based authentication implemented.
+
+## Migrating database
+
 ```
-
-Make migrations:
-
-```sh
 npm run makemigrations
 npm run migrate
 ```
+

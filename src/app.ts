@@ -42,7 +42,6 @@ class App {
 
     private assets() {
         this.app.use(express.static(path.join(__dirname, '..', 'public')));
-        // this.app.use(express.static(path.join(__dirname, '..', 'views')));
     }
 
     private template() {
@@ -50,8 +49,6 @@ class App {
             autoescape: true,
             express: this.app,
         });
-        // this.app.set('view engine', 'pug');
-        // this.app.set('views', path.join(__dirname))
     }
 
     public listen() {

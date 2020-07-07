@@ -3,6 +3,7 @@ import User from '../models/User';
 
 /**
  * Initialize passport passport
+ * Use email/password combo to authenticate users
  * @param passport namespace import from the NPM module
  */
 export default function initPassport(passport: any) {

@@ -28,7 +28,7 @@ export default class AuhtControllerAPI extends BaseController {
     protected post = async (req: Request, res: Response) => {
         let user = await User.findOne({ email: req.body.email });
 
-        if (!user.validatePassword(req.body.password)) {
+        if (!user || !user.validatePassword(req.body.password)) {
             return res
                 .status(status.UNAUTHORIZED)
                 .json({ detail: 'Bad credentials' });

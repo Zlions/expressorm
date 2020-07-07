@@ -11,16 +11,21 @@ import { createConnection } from 'typeorm';
 import * as morgan from 'morgan';
 import * as dotenv from 'dotenv';
 import * as cors from 'cors';
+import * as expressSession from 'express-session';
+import * as passport from 'passport';
 
-import loggerMiddleware from './middleware/logger';
 import HomeController from './controllers/home.controller';
 import AuthController from './controllers/auth.controller';
 import AuhtControllerAPI from './controllers/api/auth.controller';
+import initPassport from './config/passport';
+import authenticateJWT from './middleware/jwt';
 
 dotenv.config();
 
 createConnection()
     .then(async (_) => {
+        initPassport(passport);
+
         const app = new App({
             port: Number.parseInt(process.env.PORT) || 5000,
             controllers: [
@@ -31,9 +36,16 @@ createConnection()
             middlewares: [
                 bodyParser.json(),
                 bodyParser.urlencoded({ extended: true }),
-                loggerMiddleware,
                 morgan('dev'),
                 cors(),
+                authenticateJWT,
+                expressSession({
+                    secret: 'secret',
+                    resave: false,
+                    saveUninitialized: false,
+                }),
+                passport.initialize(),
+                passport.session(),
             ],
         });
 

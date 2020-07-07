@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import serialize from '../helpers/serializers';
+import { JWTprivateKey } from '../config/secrets';
 
 /**
  * Helper interface
@@ -11,6 +12,12 @@ interface UserInterface {
     firstName: string;
     lastName: string;
     password: string;
+}
+
+export interface JWTUserInterface {
+    _id: number;
+    email: string;
+    exp: Date;
 }
 
 /**
@@ -74,7 +81,7 @@ export default class User extends BaseEntity {
                 email: this.email,
                 exp: expirationDate.getTime() / 1000,
             },
-            'secret'
+            JWTprivateKey
         );
     };
 
